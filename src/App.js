@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { loadData, saveData } from './storage';
+import ProjectList from './ProjectList';
+import AddProjectForm from './AddProjectForm';
 
 function App() {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const storedProjects = loadData();
+    if (storedProjects) {
+      setProjects(storedProjects);
+    }
+  }, []);
+
+  const addProject = (projectName) => {
+    const newProject = { name: projectName, tasks: [] };
+    const updatedProjects = [...projects, newProject];
+    setProjects(updatedProjects);
+    saveData(updatedProjects);
+  };
+
+  // Other state management functions like removeProject, addTask, etc.
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Project Manager</h1>
+      <AddProjectForm onAddProject={addProject} />
+      <ProjectList projects={projects} />
     </div>
   );
 }
