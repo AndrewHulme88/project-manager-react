@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 
 const AddProjectForm = ({ onAddProject }) => {
-  const [projectName, setProjectName] = useState('');
+  const [name, setName] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddProject(projectName);
-    setProjectName('');
+    if(name) {
+      onAddProject(name);
+      setName('');
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
-        placeholder="Project name"
-        value={projectName}
-        onChange={(e) => setProjectName(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="New project name"
       />
       <button type="submit">Add Project</button>
     </form>
