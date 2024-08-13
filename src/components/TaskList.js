@@ -7,7 +7,7 @@ const TaskList = ({ tasks, projectIndex, onToggleTask }) => (
       <Task
         key={taskIndex}
         task={task}
-        onToggle={() => onToggleTask(taskIndex)}
+        onToggle={() => onToggleTask(projectIndex, taskIndex)}
       />
     ))}
   </ul>

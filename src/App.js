@@ -32,9 +32,13 @@ function App() {
 
   const toggleTask = (projectIndex, taskIndex) => {
     const newProjects = [...projects];
-    const task = newProjects[projectIndex].tasks[taskIndex];
-    task.completed = !task.completed;
-    updateProjects(newProjects);
+    const taskList = newProjects[projectIndex].tasks;
+    if (taskList[taskIndex]) { // Check if task exists
+      taskList[taskIndex].completed = !taskList[taskIndex].completed;
+      updateProjects(newProjects);
+    } else {
+      console.error(`Task at index ${taskIndex} does not exist.`);
+    }
   };
 
   return (
